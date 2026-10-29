@@ -14,15 +14,12 @@ function getDB() {
       upgrade(db, oldVersion, newVersion, transaction) {
         // نسخه ۱
         if (oldVersion < 1) {
-          if (!db.objectStoreNames.contains(STORE_PROMPTS)) {
-            const store = db.createObjectStore(STORE_PROMPTS, { keyPath: 'id' });
-            store.createIndex('by-category', 'category');
-            store.createIndex('by-model', 'model');
-            store.createIndex('by-updated', 'updatedAt');
-          }
+          const store = db.createObjectStore(STORE_PROMPTS, { keyPath: 'id' });
+          store.createIndex('by-category', 'category');
+          store.createIndex('by-model', 'model');
+          store.createIndex('by-updated', 'updatedAt');
         }
-
-        // نسخه ۲ — استفاده از تراکنش ارتقا (رفع باگ)
+        // نسخه ۲ (استفاده از تراکنش درست)
         if (oldVersion < 2) {
           const store = transaction.objectStore(STORE_PROMPTS);
           if (!store.indexNames.contains('by-rating')) {
@@ -31,39 +28,21 @@ function getDB() {
           if (!store.indexNames.contains('by-useCount')) {
             store.createIndex('by-useCount', 'useCount');
           }
-          migrateRecords(store);
         }
-
         // نسخه ۳
         if (oldVersion < 3) {
-          if (!db.objectStoreNames.contains(STORE_PROJECTS)) {
-            const ps = db.createObjectStore(STORE_PROJECTS, { keyPath: 'id' });
-            ps.createIndex('by-updated', 'updatedAt');
-          }
-          if (!db.objectStoreNames.contains(STORE_TASKS)) {
-            const ts = db.createObjectStore(STORE_TASKS, { keyPath: 'id' });
-            ts.createIndex('by-project', 'projectId');
-            ts.createIndex('by-status', 'status');
-            ts.createIndex('by-parent', 'parentId');
-            ts.createIndex('by-order', 'order');
-          }
+          const ps = db.createObjectStore(STORE_PROJECTS, { keyPath: 'id' });
+          ps.createIndex('by-updated', 'updatedAt');
+          const ts = db.createObjectStore(STORE_TASKS, { keyPath: 'id' });
+          ts.createIndex('by-project', 'projectId');
+          ts.createIndex('by-status', 'status');
+          ts.createIndex('by-parent', 'parentId');
+          ts.createIndex('by-order', 'order');
         }
       },
     });
   }
   return dbPromise;
-}
-
-function migrateRecords(store) {
-  const req = store.openCursor();
-  req.onsuccess = () => {
-    const cursor = req.result;
-    if (!cursor) return;
-    const record = cursor.value;
-    const patched = ensureMemoryShape(record);
-    if (JSON.stringify(record) !== JSON.stringify(patched)) cursor.update(patched);
-    cursor.continue();
-  };
 }
 
 export function ensureMemoryShape(p) {
@@ -96,9 +75,10 @@ function clamp(n) {
   return Math.min(5, Math.max(0, Math.round(v)));
 }
 
-/* ---------- Prompts CRUD ---------- */
 export async function getAllPrompts() {
-  return (await getDB()).getAll(STORE_PROMPTS);
+  const db = await getDB();
+  const raw = await db.getAll(STORE_PROMPTS);
+  return raw.map(ensureMemoryShape);
 }
 
 export async function getPrompt(id) {
@@ -139,7 +119,6 @@ function snapshotOf(p) {
   };
 }
 
-/* ---------- Export / Import ---------- */
 export async function exportPrompts() {
   const prompts = await getAllPrompts();
   return { version: '2026.10', exportedAt: new Date().toISOString(), prompts };
@@ -160,7 +139,6 @@ export async function importPrompts(payload) {
   }
 }
 
-/* ---------- Projects CRUD ---------- */
 export async function getAllProjects() {
   return (await getDB()).getAll(STORE_PROJECTS);
 }
@@ -181,7 +159,6 @@ export async function deleteProject(id) {
   await tx.done;
 }
 
-/* ---------- Tasks CRUD ---------- */
 export async function getTasksByProject(projectId) {
   return (await getDB()).getAllFromIndex(STORE_TASKS, 'by-project', projectId);
 }
