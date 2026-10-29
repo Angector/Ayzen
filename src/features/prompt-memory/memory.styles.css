@@ -1,0 +1,54 @@
+.memory-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background: var(--color-bg);
+  border-radius: 8px;
+}
+
+.memory-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .8rem;
+}
+
+.memory-label {
+  color: var(--color-text-muted);
+  min-width: 100px;
+}
+
+.memory-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.memory-star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-border-strong);
+  transition: color 120ms ease, transform 120ms ease;
+  padding: 2px;
+  line-height: 1;
+  font-size: 1.1rem;
+}
+
+.memory-star.filled { color: var(--color-warning); }
+.memory-star:hover { transform: scale(1.15); }
+.memory-star:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.memory-overall {
+  font-size: .75rem;
+  color: var(--color-text-subtle);
+  padding: 3px 8px;
+  background: var(--color-bg);
+  border-radius: 6px;
+  align-self: flex-start;
+  font-family: system-ui, sans-serif;
+}

@@ -1,0 +1,43 @@
+.library-toolbar {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+  align-items: center;
+}
+
+.library-toolbar input,
+.library-toolbar select {
+  font: inherit; padding: 8px 12px;
+  background: var(--color-surface);
+  color: var(--color-text-default);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+}
+
+.library-toolbar input {
+  flex: 1;
+  min-width: 180px;
+}
+
+.library-toolbar input:focus-visible,
+.library-toolbar select:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.library-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-text-subtle);
+}
+
+.library-empty h2 {
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}

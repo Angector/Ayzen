@@ -1,0 +1,18 @@
+:root {
+  --color-bg: var(--a-bg);
+  --color-surface: var(--a-surface);
+  --color-surface-raised: var(--a-surface-raised);
+  --color-border: var(--a-border);
+  --color-border-strong: var(--a-border-strong);
+  --color-text-default: var(--a-text);
+  --color-text-muted: var(--a-text-muted);
+  --color-text-subtle: var(--a-text-subtle);
+  --color-brand: var(--a-brand);
+  --color-brand-hover: var(--a-brand-hover);
+  --color-success: var(--a-success);
+  --color-warning: var(--a-warning);
+  --color-danger: var(--a-danger);
+  --radius-card: var(--a-radius-card);
+  --radius-button: var(--a-radius-button);
+  --radius-dialog: var(--a-radius-dialog);
+}

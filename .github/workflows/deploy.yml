@@ -1,0 +1,40 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check JS budget (initial bundle)
+        run: |
+          TOTAL=$(find src -name '*.js' -not -path '*/plugins/*' -not -path '*/knowledge-base/*' -not -path '*/insights/*' -exec wc -c {} + | tail -1 | awk '{print $1}')
+          echo "Initial bundle: $TOTAL bytes"
+          if [ "$TOTAL" -gt 102400 ]; then
+            echo "❌ Bundle exceeds 100KB budget"
+            exit 1
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        if: github.ref == 'refs/heads/main'
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: prompt-command-center
+          directory: .
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

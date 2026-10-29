@@ -1,0 +1,39 @@
+:root {
+  /* Neutral scale (OKLCH) */
+  --p-gray-950: oklch(0.145 0 0);
+  --p-gray-900: oklch(0.175 0.005 270);
+  --p-gray-850: oklch(0.21 0.006 270);
+  --p-gray-800: oklch(0.25 0.007 270);
+  --p-gray-700: oklch(0.32 0.008 270);
+  --p-gray-500: oklch(0.55 0.01 270);
+  --p-gray-400: oklch(0.71 0.01 270);
+  --p-gray-100: oklch(0.985 0 0);
+
+  /* Brand */
+  --p-blue-500: oklch(0.70 0.15 260);
+  --p-blue-600: oklch(0.62 0.16 260);
+
+  /* Status */
+  --p-green-500: oklch(0.65 0.15 155);
+  --p-amber-500: oklch(0.75 0.15 65);
+  --p-red-500: oklch(0.65 0.18 25);
+  --p-violet-500: oklch(0.68 0.14 310);
+  --p-teal-500: oklch(0.70 0.12 190);
+
+  /* Spacing (مضرب ۴) */
+  --p-space-1: 4px;
+  --p-space-2: 8px;
+  --p-space-3: 12px;
+  --p-space-4: 16px;
+  --p-space-6: 24px;
+  --p-space-8: 32px;
+
+  /* Radius */
+  --p-radius-sm: 8px;
+  --p-radius-md: 12px;
+  --p-radius-lg: 16px;
+
+  /* Font */
+  --p-font-sans: "Vazirmatn", system-ui, sans-serif;
+  --p-font-mono: "Vazirmatn Code", "JetBrains Mono", monospace;
+}

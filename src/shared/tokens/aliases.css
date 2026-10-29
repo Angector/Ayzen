@@ -1,0 +1,18 @@
+:root {
+  --a-bg: var(--p-gray-950);
+  --a-surface: var(--p-gray-900);
+  --a-surface-raised: var(--p-gray-850);
+  --a-border: oklch(1 0 0 / 8%);
+  --a-border-strong: oklch(1 0 0 / 14%);
+  --a-text: var(--p-gray-100);
+  --a-text-muted: var(--p-gray-400);
+  --a-text-subtle: var(--p-gray-500);
+  --a-brand: var(--p-blue-500);
+  --a-brand-hover: var(--p-blue-600);
+  --a-success: var(--p-green-500);
+  --a-warning: var(--p-amber-500);
+  --a-danger: var(--p-red-500);
+  --a-radius-card: var(--p-radius-md);
+  --a-radius-button: var(--p-radius-sm);
+  --a-radius-dialog: var(--p-radius-lg);
+}

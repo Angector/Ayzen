@@ -1,0 +1,1 @@
+export { PROJECT_TEMPLATES } from '../features/project-cockpit/cockpit.templates.js';
