@@ -1,8 +1,8 @@
-export async function registerServiceWorker({ onUpdateAvailable } = {}) {
+﻿export async function registerServiceWorker({ onUpdateAvailable } = {}) {
   if (!('serviceWorker' in navigator)) return null;
 
   try {
-    const registration = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+    const registration = await navigator.serviceWorker.register('/Ayzen/sw.js', { scope: '/Ayzen/' });
 
     registration.update();
 

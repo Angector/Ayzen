@@ -1,22 +1,22 @@
-const CACHE_VERSION = 'v1';
+﻿const CACHE_VERSION = 'v1';
 const CACHE_STATIC  = `pcc-static-${CACHE_VERSION}`;
 const CACHE_RUNTIME = `pcc-runtime-${CACHE_VERSION}`;
 const CACHE_CDN     = `pcc-cdn-${CACHE_VERSION}`;
 
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/offline.html',
-  '/manifest.webmanifest',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/icons/icon-maskable-512.png',
-  '/src/shared/tokens/primitives.css',
-  '/src/shared/tokens/aliases.css',
-  '/src/shared/tokens/semantic.css',
-  '/src/shared/tokens/themes.css',
-  '/src/shared/tokens/typography.css',
-  '/src/shared/tokens/motion.css',
+  '/Ayzen/',
+  '/Ayzen/index.html',
+  '/Ayzen/offline.html',
+  '/Ayzen/manifest.webmanifest',
+  '/Ayzen/icons/icon-192.png',
+  '/Ayzen/icons/icon-512.png',
+  '/Ayzen/icons/icon-maskable-512.png',
+  '/Ayzen/src/shared/tokens/primitives.css',
+  '/Ayzen/src/shared/tokens/aliases.css',
+  '/Ayzen/src/shared/tokens/semantic.css',
+  '/Ayzen/src/shared/tokens/themes.css',
+  '/Ayzen/src/shared/tokens/typography.css',
+  '/Ayzen/src/shared/tokens/motion.css',
 ];
 
 self.addEventListener('install', (event) => {
@@ -70,7 +70,7 @@ function isStaticAsset(pathname) {
 function isPinnedCdn(url) {
   return (
     (url.hostname === 'cdn.jsdelivr.net' && /@\d+\.\d+/.test(url.pathname)) ||
-    (url.hostname === 'cdn.jsdelivr.net' && url.pathname.startsWith('/npm/idb@'))
+    (url.hostname === 'cdn.jsdelivr.net' && url.pathname.startsWith('/Ayzen/npm/idb@'))
   );
 }
 
@@ -83,7 +83,7 @@ async function networkFirstWithFallback(request) {
   } catch {
     const cached = await cache.match(request);
     if (cached) return cached;
-    return caches.match('/offline.html');
+    return caches.match('/Ayzen/offline.html');
   }
 }
 

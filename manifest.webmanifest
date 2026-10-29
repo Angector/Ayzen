@@ -1,11 +1,11 @@
-{
+﻿{
   "name": "Prompt Command Center",
   "short_name": "Prompt Hub",
-  "description": "اتاق فرمان پرامپت‌ها، پروژه‌ها و دانش هوش مصنوعی",
+  "description": "Ø§ØªØ§Ù‚ ÙØ±Ù…Ø§Ù† Ù¾Ø±Ø§Ù…Ù¾Øªâ€ŒÙ‡Ø§ØŒ Ù¾Ø±ÙˆÚ˜Ù‡â€ŒÙ‡Ø§ Ùˆ Ø¯Ø§Ù†Ø´ Ù‡ÙˆØ´ Ù…ØµÙ†ÙˆØ¹ÛŒ",
   "lang": "fa",
   "dir": "rtl",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/Ayzen/",
+  "scope": "/Ayzen/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "any",
@@ -13,8 +13,8 @@
   "background_color": "#0a0a0a",
   "categories": ["productivity", "developer"],
   "icons": [
-    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/Ayzen/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/Ayzen/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/Ayzen/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
