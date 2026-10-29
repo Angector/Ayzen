@@ -1,4 +1,4 @@
-import { openDB } from 'idb';
+﻿import { openDB } from 'idb';
 
 const DB_NAME = 'prompt-hub';
 const DB_VERSION = 3;
@@ -11,8 +11,8 @@ let dbPromise = null;
 function getDB() {
   if (!dbPromise) {
     dbPromise = openDB(DB_NAME, DB_VERSION, {
-      upgrade(db, oldVersion) {
-        /* نسخه ۱ — استخوان‌بندی فاز ۱ */
+      upgrade(db, oldVersion, newVersion, transaction) {
+        // نسخه ۱
         if (oldVersion < 1) {
           if (!db.objectStoreNames.contains(STORE_PROMPTS)) {
             const store = db.createObjectStore(STORE_PROMPTS, { keyPath: 'id' });
@@ -22,24 +22,19 @@ function getDB() {
           }
         }
 
-        /* نسخه ۲ — حافظه فاز ۳ */
+        // نسخه ۲ — استفاده از تراکنش ارتقا (رفع باگ)
         if (oldVersion < 2) {
-          const tx = db.transaction(STORE_PROMPTS, 'readwrite');
-          const store = tx.objectStore(STORE_PROMPTS);
-
+          const store = transaction.objectStore(STORE_PROMPTS);
           if (!store.indexNames.contains('by-rating')) {
             store.createIndex('by-rating', 'rating.overall');
           }
           if (!store.indexNames.contains('by-useCount')) {
             store.createIndex('by-useCount', 'useCount');
           }
-
           migrateRecords(store);
-
-          tx.oncomplete = () => console.info('[db] migrated to version 2');
         }
 
-        /* نسخه ۳ — پروژه‌ها و وظایف فاز ۲.۵ */
+        // نسخه ۳
         if (oldVersion < 3) {
           if (!db.objectStoreNames.contains(STORE_PROJECTS)) {
             const ps = db.createObjectStore(STORE_PROJECTS, { keyPath: 'id' });
@@ -157,7 +152,7 @@ export async function importPrompts(payload) {
   const existing = await getAllPrompts();
   const byId = new Map(existing.map(p => [p.id, p]));
   for (const p of payload.prompts) {
-    if (!p.id) p.id = `u-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    if (!p.id) p.id = u--;
     const prev = byId.get(p.id);
     if (!prev || new Date(p.updatedAt ?? 0) >= new Date(prev.updatedAt ?? 0)) {
       await putPrompt(p);
