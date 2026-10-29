@@ -1,4 +1,4 @@
-name: Deploy
+﻿name: Deploy
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Check JS budget (initial bundle)
+      - name: Check JS budget
         run: |
           TOTAL=$(find src -name '*.js' -not -path '*/plugins/*' -not -path '*/knowledge-base/*' -not -path '*/insights/*' -exec wc -c {} + | tail -1 | awk '{print $1}')
           echo "Initial bundle: $TOTAL bytes"
@@ -31,10 +31,8 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         if: github.ref == 'refs/heads/main'
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: prompt-command-center
-          directory: .
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy . --project-name=prompt-command-center
